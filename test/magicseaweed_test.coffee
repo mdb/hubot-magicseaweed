@@ -9,7 +9,7 @@ process.env.HUBOT_MAGICSEAWEED_DEFAULT_LOCATION = '392'
 
 helper = new Helper '../src/magicseaweed.coffee'
 mockResp = require './fixtures/fixture.coffee'
-expectedResp =  "```.---------------------------------------------------------.\n|            Day             | Combined Swell |   Wind    |\n|----------------------------|----------------|-----------|\n| Tuesday, Sep 29th, 8:00 pm | 7.5ft @ 10s SE | 13mph SSE |\n'---------------------------------------------------------'```"
+expectedResp = "```.-----------------------------------------------------------.\n|             Day              | Combined Swell |   Wind    |\n|------------------------------|----------------|-----------|\n| Wednesday, Sep 30th, 2:00 am | 7.5ft @ 10s SE | 13mph SSE |\n'-----------------------------------------------------------'```"
 
 describe 'seaweed', ->
   beforeEach ->

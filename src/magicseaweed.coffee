@@ -42,7 +42,7 @@ format = (forecast) ->
 
   for day, i in forecast
     swell = day.swell.components.combined
-    table.addRow(formatDate(day.localTimestamp), "#{swell.height}#{day.swell.unit} @ #{swell.period}s #{swell.compassDirection}", "#{day.wind.speed}#{day.wind.unit} #{day.wind.compassDirection}")
+    table.addRow(formatDate(day.timestamp), "#{swell.height}#{day.swell.unit} @ #{swell.period}s #{swell.compassDirection}", "#{day.wind.speed}#{day.wind.unit} #{day.wind.compassDirection}")
 
   table.toString()
 
