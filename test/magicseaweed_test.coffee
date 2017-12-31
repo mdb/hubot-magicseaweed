@@ -1,6 +1,7 @@
 Helper = require('hubot-test-helper')
 chai = require 'chai'
 nock = require 'nock'
+moment = require 'moment-timezone'
 
 expect = chai.expect
 
@@ -13,12 +14,14 @@ expectedResp = "```.-----------------------------------------------------------.
 
 describe 'seaweed', ->
   beforeEach ->
+    moment.tz.setDefault('America/New_York')
     @room = helper.createRoom()
     do nock.disableNetConnect
 
   afterEach ->
     @room.destroy()
     nock.cleanAll()
+    moment.tz.setDefault()
 
   context 'user asks hubot for the surf forecast without passing a location', ->
     context 'the Magicseaweed API responds successfully using the default location', ->

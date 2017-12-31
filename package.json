@@ -24,6 +24,7 @@
     "chai": "*",
     "hubot-test-helper": "^1.8.1",
     "mocha": "*",
+    "moment-timezone": "^0.5.14",
     "nock": "^9.1.5",
     "sinon": "*",
     "sinon-chai": "*"
