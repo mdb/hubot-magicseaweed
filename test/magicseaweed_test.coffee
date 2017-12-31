@@ -9,6 +9,7 @@ process.env.HUBOT_MAGIC_SEAWEED_DEFAULT_LOCATION = '392'
 
 helper = new Helper '../src/magicseaweed.coffee'
 mockResp = require './fixtures/fixture.coffee'
+expectedResp =  "```.---------------------------------------------------------.\n|            Day             | Combined Swell |   Wind    |\n|----------------------------|----------------|-----------|\n| Tuesday, Sep 29th, 8:00 pm | 7.5ft @ 10s SE | 13mph SSE |\n'---------------------------------------------------------'```"
 
 describe 'seaweed', ->
   beforeEach ->
@@ -32,10 +33,10 @@ describe 'seaweed', ->
         # wait for hubot to respond
         setTimeout done, 100
 
-      it 'fetches the MagicSeaweed forecast', ->
+      it 'reports the Magic Seaweed forecast', ->
         expect(@room.messages).to.eql [
           ['alice', '@hubot seaweed']
-          ['hubot', mockResp]
+          ['hubot', expectedResp]
         ]
 
     context 'the Magic Seaweed API does not respond 200', ->

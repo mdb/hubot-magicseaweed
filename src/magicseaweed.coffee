@@ -14,6 +14,10 @@
 #
 # Author:
 #   mdb
+
+AsciiTable = require 'ascii-table'
+moment = require 'moment'
+
 module.exports = (robot) ->
   robot.respond /seaweed ?(.+)?/i, (msg) ->
     location = msg.match[1] || process.env.HUBOT_MAGIC_SEAWEED_DEFAULT_LOCATION
@@ -25,4 +29,18 @@ module.exports = (robot) ->
           msg.emote "Magic Seaweed request responded HTTP #{res.statusCode} :("
           return
 
-        msg.emote body
+        msg.emote "```#{format(JSON.parse(body))}```"
+
+format = (forecast) ->
+  table = new AsciiTable()
+
+  table.setHeading('Day', 'Combined Swell', 'Wind')
+
+  for day, i in forecast
+    swell = day.swell.components.combined
+    table.addRow(formatDate(day.localTimestamp), "#{swell.height}#{day.swell.unit} @ #{swell.period}s #{swell.compassDirection}", "#{day.wind.speed}#{day.wind.unit} #{day.wind.compassDirection}")
+
+  table.toString()
+
+formatDate = (timestamp) ->
+  moment.unix(timestamp).format("dddd, MMM Do, h:mm a")
