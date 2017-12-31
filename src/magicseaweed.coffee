@@ -1,15 +1,15 @@
 # Description
-#   Grabs the current Magic Seaweed forecast
+#   Grabs the current Magicseaweed forecast
 #
 # Dependencies
 #   None
 #
 # Configuration
-#   HUBOT_MAGIC_SEAWEED_API_KEY
-#   HUBOT_MAGIC_SEAWEED_DEFAULT_LOCATION
+#   HUBOT_MAGICSEAWEED_API_KEY
+#   HUBOT_MAGICSEAWEED_DEFAULT_LOCATION
 #
 # Commands:
-#   hubot seaweed - Get the weather for HUBOT_MAGIC_SEAWEED_DEFAULT_LOCATION
+#   hubot seaweed - Get the weather for HUBOT_MAGICSEAWEED_DEFAULT_LOCATION
 #   hubot seaweed <location> - Get the weather for <location>
 #
 # Author:
@@ -20,17 +20,17 @@ moment = require 'moment'
 
 module.exports = (robot) ->
   robot.respond /seaweed ?(.+)?/i, (msg) ->
-    location = msg.match[1] || process.env.HUBOT_MAGIC_SEAWEED_DEFAULT_LOCATION
-    url = "http://magicseaweed.com/api/#{process.env.HUBOT_MAGIC_SEAWEED_API_KEY}/forecast/?spot_id=#{location}"
+    location = msg.match[1] || process.env.HUBOT_MAGICSEAWEED_DEFAULT_LOCATION
+    url = "http://magicseaweed.com/api/#{process.env.HUBOT_MAGICSEAWEED_API_KEY}/forecast/?spot_id=#{location}"
 
     robot.http(url)
       .get() (err, res, body) ->
         if err
-          msg.emote "Magic Seaweed request responded #{err} :("
+          msg.emote "Magicseaweed request responded #{err} :("
           return
 
         if res.statusCode isnt 200
-          msg.emote "Magic Seaweed request responded HTTP #{res.statusCode} :("
+          msg.emote "Magicseaweed request responded HTTP #{res.statusCode} :("
           return
 
         msg.emote "```#{format(JSON.parse(body))}```"

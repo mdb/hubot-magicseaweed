@@ -15,10 +15,24 @@ Add **hubot-magicseaweed** to your `external-scripts.json`:
 ```
 
 ## Configuration
-- `HUBOT_MAGIC_SEAWEED_API_KEY` an API key from [magicseaweed.com](https://magicseaweed.com)
-- `HUBOT_MAGIC_SEAWEED_DEFAULT_LOCATION` if unset, `seaweed` commands without a location will be ignored
+- `HUBOT_MAGICSEAWEED_API_KEY` an API key from [magicseaweed.com](https://magicseaweed.com)
+- `HUBOT_MAGICSEAWEED_DEFAULT_LOCATION` if unset, `seaweed` commands without a location will be ignored
 
 ## Sample Interaction
 ```
 user> hubot: seaweed 392
+```
+
+## Development
+
+Install dependencies:
+
+```
+npm install
+```
+
+Run tests:
+
+```
+npm test
 ```
