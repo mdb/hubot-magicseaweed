@@ -1,0 +1,33 @@
+{
+  "name": "hubot-magic-seaweed",
+  "description": "A Magic Seaweed script package for Hubot",
+  "version": "0.0.1",
+  "author": "Mike Ball <mikedball@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "hubot",
+    "hubot-scripts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mdb/hubot-magic-seaweed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mdb/hubot-magic-seaweed/issues"
+  },
+  "dependencies": {
+    "coffee-script": ""
+  },
+  "devDependencies": {
+    "chai": "*",
+    "hubot-test-helper": "^1.8.1",
+    "mocha": "*",
+    "nock": "^9.1.5",
+    "sinon": "*",
+    "sinon-chai": "*"
+  },
+  "main": "index.coffee",
+  "scripts": {
+    "test": "mocha --require coffee-script/register test/*.coffee"
+  }
+}
