@@ -16,13 +16,12 @@ describe 'seaweed', ->
     @room = helper.createRoom()
     do nock.disableNetConnect
 
-
   afterEach ->
     @room.destroy()
     nock.cleanAll()
 
-  context 'user asks hubot for the surf forecast', ->
-    context 'the Magic Seaweed API responds successfully', ->
+  context 'user asks hubot for the surf forecast without passing a location', ->
+    context 'the Magic Seaweed API responds successfully using the default location', ->
       beforeEach (done) ->
         nock('http://magicseaweed.com')
           .get('/api/123/forecast/?spot_id=392')
@@ -55,3 +54,20 @@ describe 'seaweed', ->
           ['alice', '@hubot seaweed']
           ['hubot', 'Magic Seaweed request responded HTTP 500 :(']
         ]
+
+  context 'user asks hubot for the surf forecast with a non-default location', ->
+    beforeEach (done) ->
+      nock('http://magicseaweed.com')
+        .get('/api/123/forecast/?spot_id=555')
+        .reply(200, mockResp)
+
+      @room.user.say 'alice', '@hubot seaweed 555'
+
+      # wait for hubot to respond
+      setTimeout done, 100
+
+    it 'reports the Magic Seaweed forecast for the location it is passed', ->
+      expect(@room.messages).to.eql [
+        ['alice', '@hubot seaweed 555']
+        ['hubot', expectedResp]
+      ]

@@ -25,6 +25,10 @@ module.exports = (robot) ->
 
     robot.http(url)
       .get() (err, res, body) ->
+        if err
+          msg.emote "Magic Seaweed request responded #{err} :("
+          return
+
         if res.statusCode isnt 200
           msg.emote "Magic Seaweed request responded HTTP #{res.statusCode} :("
           return
