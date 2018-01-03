@@ -23,6 +23,10 @@ module.exports = (robot) ->
     location = msg.match[1] || process.env.HUBOT_MAGICSEAWEED_DEFAULT_LOCATION
     url = "http://magicseaweed.com/api/#{process.env.HUBOT_MAGICSEAWEED_API_KEY}/forecast/?spot_id=#{location}"
 
+    if !location
+      msg.emote "No location ID passed and no `HUBOT_MAGICSEAWEED_DEFAULT_LOCATION` environment variable set"
+      return
+
     robot.http(url)
       .get() (err, res, body) ->
         if err

@@ -4,9 +4,7 @@ nock = require 'nock'
 moment = require 'moment-timezone'
 
 expect = chai.expect
-
-process.env.HUBOT_MAGICSEAWEED_API_KEY = '123'
-process.env.HUBOT_MAGICSEAWEED_DEFAULT_LOCATION = '392'
+defaultLocation = '123'
 
 helper = new Helper '../src/magicseaweed.coffee'
 mockResp = require './fixtures/fixture.coffee'
@@ -14,6 +12,8 @@ expectedResp = "```.-----------------------------------------------------------.
 
 describe 'seaweed', ->
   beforeEach ->
+    process.env.HUBOT_MAGICSEAWEED_API_KEY = defaultLocation
+    process.env.HUBOT_MAGICSEAWEED_DEFAULT_LOCATION = '392'
     moment.tz.setDefault('America/New_York')
     @room = helper.createRoom()
     do nock.disableNetConnect
@@ -39,6 +39,20 @@ describe 'seaweed', ->
         expect(@room.messages).to.eql [
           ['alice', '@hubot seaweed']
           ['hubot', expectedResp]
+        ]
+
+    context 'there is no default location', ->
+      beforeEach () ->
+        process.env.HUBOT_MAGICSEAWEED_DEFAULT_LOCATION = ''
+        @room.user.say 'alice', '@hubot seaweed'
+
+      afterEach () ->
+        process.env.HUBOT_MAGICSEAWEED_DEFAULT_LOCATION = defaultLocation
+
+      it 'reports a helpful message', ->
+        expect(@room.messages).to.eql [
+          ['alice', '@hubot seaweed']
+          ['hubot', 'No location ID passed and no `HUBOT_MAGICSEAWEED_DEFAULT_LOCATION` environment variable set']
         ]
 
     context 'the Magicseaweed API does not respond 200', ->
