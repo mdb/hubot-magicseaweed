@@ -1,6 +1,6 @@
 # hubot-magicseaweed
 
-A [Hubot](https://hubot.github.com) script to grab the [Magicseaweed](http://magicseaweed.com) surf forecast information.
+A [Hubot](https://hubot.github.com) script to report the [Magicseaweed](http://magicseaweed.com) surf forecast.
 
 [![Build Status](https://travis-ci.org/mdb/hubot-magicseaweed.png)](https://travis-ci.org/mdb/hubot-magicseaweed)
 
@@ -19,6 +19,7 @@ Add **hubot-magicseaweed** to your `external-scripts.json`:
 - `HUBOT_MAGICSEAWEED_DEFAULT_LOCATION` if unset, `seaweed` commands without a location will be ignored
 
 ## Sample Interaction
+
 ```
 user> hubot: seaweed 392
 ```
