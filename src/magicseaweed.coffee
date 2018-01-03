@@ -18,13 +18,21 @@
 AsciiTable = require 'ascii-table'
 moment = require 'moment'
 
+usage = 'hubot seaweed <location-id> - return the Magicseaweed forecast for the `<location-id>` passed. If no `<location-id>` is passed, use `HUBOT_MAGICSEAWEED_DEFAULT_LOCATION`'
+
 module.exports = (robot) ->
+  robot.commands.push usage
+
   robot.respond /seaweed ?(.+)?/i, (msg) ->
     location = msg.match[1] || process.env.HUBOT_MAGICSEAWEED_DEFAULT_LOCATION
     url = "http://magicseaweed.com/api/#{process.env.HUBOT_MAGICSEAWEED_API_KEY}/forecast/?spot_id=#{location}"
 
     if !location
-      msg.emote "No location ID passed and no `HUBOT_MAGICSEAWEED_DEFAULT_LOCATION` environment variable set"
+      msg.emote 'No location ID passed and no `HUBOT_MAGICSEAWEED_DEFAULT_LOCATION` environment variable set'
+      return
+
+    if location is 'help'
+      msg.emote usage
       return
 
     robot.http(url)
@@ -51,4 +59,4 @@ format = (forecast) ->
   table.toString()
 
 formatDate = (timestamp) ->
-  moment.unix(timestamp).format("dddd, MMM Do, h:mm a")
+  moment.unix(timestamp).format('dddd, MMM Do, h:mm a')

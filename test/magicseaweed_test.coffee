@@ -2,12 +2,10 @@ Helper = require('hubot-test-helper')
 chai = require 'chai'
 nock = require 'nock'
 moment = require 'moment-timezone'
-
 expect = chai.expect
-defaultLocation = '123'
-
 helper = new Helper '../src/magicseaweed.coffee'
 mockResp = require './fixtures/fixture.coffee'
+defaultLocation = '123'
 expectedResp = "```.-----------------------------------------------------------.\n|             Day              | Combined Swell |   Wind    |\n|------------------------------|----------------|-----------|\n| Wednesday, Sep 30th, 2:00 am | 7.5ft @ 10s SE | 13mph SSE |\n'-----------------------------------------------------------'```"
 
 describe 'seaweed', ->
@@ -87,4 +85,14 @@ describe 'seaweed', ->
       expect(@room.messages).to.eql [
         ['alice', '@hubot seaweed 555']
         ['hubot', expectedResp]
+      ]
+
+  context 'user asks hubot for seaweed usage help', ->
+    beforeEach () ->
+      @room.user.say 'alice', '@hubot seaweed help'
+
+    it 'reports a usage explanation', ->
+      expect(@room.messages).to.eql [
+        ['alice', '@hubot seaweed help']
+        ['hubot', 'hubot seaweed <location-id> - return the Magicseaweed forecast for the `<location-id>` passed. If no `<location-id>` is passed, use `HUBOT_MAGICSEAWEED_DEFAULT_LOCATION`']
       ]
